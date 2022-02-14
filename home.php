@@ -2,11 +2,11 @@
 include "header.php";
 ?>
 <div id="main-content">
-    <h2>All Records</h2>
+    <h2>All Students</h2>
     <?php
     $db = mysqli_connect("localhost","root","","lighthouse") or die(mysqli_error());
     $fetch_query = "SELECT * FROM student INNER JOIN course ON student.s_course = course.c_id 
-    INNER JOIN trainer ON student.s_trainer = trainer.t_id ORDER BY s_name";
+    INNER JOIN trainer ON student.s_trainer = trainer.t_id ORDER BY s_id";
     $result = mysqli_query($db,$fetch_query) or die(mysqli_error());
     if (mysqli_num_rows($result) > 0 ) { 
     ?>
@@ -17,6 +17,7 @@ include "header.php";
         <th>Number</th>
         <th>Course</th>
         <th>Trainer</th>
+        <th>Action</th>
         </thead>
         <tbody>
             <?php
@@ -28,6 +29,10 @@ include "header.php";
                 <td><?php echo $eachdata['s_number']; ?></td>
                 <td><?php echo $eachdata['c_name']; ?></td>
                 <td><?php echo $eachdata['t_name']; ?></td>
+                <td>
+                    <a href="studentupdate.php?sid=<?php echo $eachdata['s_id']; ?>">Edit</a>
+                    <a href="delete.php?s_id=<?php echo $eachdata['s_id']; ?>">Delete</a>
+                </td>
             </tr>
         <?php } ?>
         </tbody>

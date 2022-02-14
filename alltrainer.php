@@ -4,7 +4,7 @@ include "header.php";
 <div id="main-content">
     <h2>All Records</h2>
     <?php
-    $db = mysqli_connect("localhost","root","","lighthouse") or die(mysqli_error());
+    include("config.php");
     $fetch_query = "SELECT * FROM trainer";
     $result = mysqli_query($db,$fetch_query) or die(mysqli_error());
     if (mysqli_num_rows($result) > 0 ) { 
@@ -15,6 +15,7 @@ include "header.php";
         <th>Name</th>
          <th>Number</th>
         <th>Address</th>
+        <th>Action</th>
         </thead>
         <tbody>
             <?php
@@ -25,6 +26,10 @@ include "header.php";
                 <td><?php echo $eachdata['t_name']; ?></td>
                 <td><?php echo $eachdata['t_number']; ?></td>
                 <td><?php echo $eachdata['t_address']; ?></td>
+                <td>
+                    <a href="edittrainer.php?tid=<?php echo $eachdata['t_id']; ?>">Edit</a>
+                    <a href="">Delete</a>
+                </td>
             </tr>
         <?php } ?>
         </tbody>
